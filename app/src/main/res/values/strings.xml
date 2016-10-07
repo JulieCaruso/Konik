@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Konik</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="password_confirmation">Password confirmation</string>
+    <string name="error_field_invalid_email">Your username must be a valid email address.</string>
+    <string name="error_field_under_8">Enter more than 8 characters.</string>
+    <string name="error_unidentical_passwords">Passwords must be identical.</string>
+</resources>
