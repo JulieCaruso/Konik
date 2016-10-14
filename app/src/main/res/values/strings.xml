@@ -1,12 +1,21 @@
 <resources>
     <string name="app_name">Konik</string>
 
-    <string name="sign_in">Sign in</string>
-    <string name="sign_up">Sign up</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="password_confirmation">Password confirmation</string>
     <string name="error_field_invalid_email">Your username must be a valid email address.</string>
     <string name="error_field_under_8">Enter more than 8 characters.</string>
     <string name="error_unidentical_passwords">Passwords must be identical.</string>
+    <string name="error_technical">Technical error</string>
+
+    <!-- Sign up -->
+    <string name="sign_up">Sign up</string>
+    <string name="error_sign_up_title">@string/error_technical</string>
+    <string name="error_sign_up_message">An error has occurred. Please check your fields or retry later if the error persists.</string>
+
+    <!-- Sign in -->
+    <string name="sign_in">Sign in</string>
+    <string name="error_sign_in_title">@string/error_technical</string>
+    <string name="error_sign_in_message">An error has occurred. Please check your identifiers or retry later if the error persists.</string>
 </resources>

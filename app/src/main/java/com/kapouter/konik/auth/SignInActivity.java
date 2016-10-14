@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kapouter.konik.R;
+import com.kapouter.konik.util.SimpleMessageDialog;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -64,18 +66,34 @@ public class SignInActivity extends AppCompatActivity {
     private View.OnClickListener signInOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String username = ((EditText) findViewById(R.id.sign_in_username)).getText().toString();
-            String password = ((EditText) findViewById(R.id.sign_in_password)).getText().toString();
-            mAuth.signInWithEmailAndPassword(username, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful())
-                                Toast.makeText(SignInActivity.this, "auth failed", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(SignInActivity.this, "auth succeeded", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            boolean valid = true;
+            EditText usernameInput = (EditText) findViewById(R.id.sign_in_username);
+            EditText passwordInput = (EditText) findViewById(R.id.sign_in_password);
+            String username = usernameInput.getText().toString();
+            if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+                valid = false;
+                usernameInput.setError(v.getContext().getString(R.string.error_field_invalid_email));
+            }
+            String password = passwordInput.getText().toString();
+            if (password.length() < 8) {
+                valid = false;
+                passwordInput.setError(v.getContext().getString(R.string.error_field_under_8));
+            }
+            if (valid) signin(username, password);
         }
     };
+
+    private void signin(String username, String password) {
+        mAuth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            SimpleMessageDialog.show(SignInActivity.this, R.string.error_sign_in_title, R.string.error_sign_in_message);
+                        } else {
+                            Toast.makeText(SignInActivity.this, "auth succeeded", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 }
