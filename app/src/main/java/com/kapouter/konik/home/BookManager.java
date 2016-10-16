@@ -1,24 +1,18 @@
 package com.kapouter.konik.home;
 
-import android.util.Log;
-
-import com.kapouter.konik.R;
 import com.kapouter.konik.util.Cache;
 import com.kapouter.konik.util.request.JsonRequestCallback;
 import com.kapouter.konik.util.request.NYTRequest;
-import com.koushikdutta.async.http.callback.RequestCallback;
 
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class BookManager {
 
     private static final String CACHED_BOOKS = "BookManager.CACHED_BOOKS";
 
-
-    public List<Book> getCachedBooks() {
+    public static List<Book> getCachedBooks() {
         return Cache.get(CACHED_BOOKS);
     }
 

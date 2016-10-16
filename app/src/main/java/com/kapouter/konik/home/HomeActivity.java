@@ -1,24 +1,32 @@
 package com.kapouter.konik.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.kapouter.konik.R;
-import com.kapouter.konik.auth.SignInActivity;
 import com.kapouter.konik.util.request.RequestCallback;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private RecyclerView mRecycler;
+    private BookAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.home_activity);
+        mRecycler = (RecyclerView) findViewById(R.id.home_recycler);
+
+        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new BookAdapter();
+        mAdapter.setItems(BookManager.getCachedBooks());
+        mRecycler.setAdapter(mAdapter);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -30,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void newData() {
                 Log.d("azerty", "newdata");
+                mAdapter.setItems(BookManager.getCachedBooks());
             }
 
             @Override

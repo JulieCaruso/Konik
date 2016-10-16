@@ -1,7 +1,5 @@
 package com.kapouter.konik.home;
 
-import android.util.Patterns;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,16 +13,17 @@ public class BookMapper {
 
     private static final String BOOK_ERRORS = "errors";
     private static final String BOOK_RESULTS = "results";
-    private static final String BOOK_DISPLAY_NAME = "display_name"; // of list
+    private static final String BOOK_BOOKS = "books";
     private static final String BOOK_RANK = "rank";
+    private static final String BOOK_TITLE = "title";
+    private static final String BOOK_DESCRIPTION = "description";
+    private static final String BOOK_CONTRIBUTOR = "contributor";
+    private static final String BOOK_AUTHOR = "author";
+    private static final String BOOK_PUBLISHER = "publisher";
+    private static final String BOOK_IMAGE_URL = "book_image";
+    private static final String BOOK_IMAGE_WIDTH = "book_image_width";
+    private static final String BOOK_IMAGE_HEIGHT = "book_image_height";
     private static final String BOOK_AMAZON_URL = "amazon_product_url";
-    private static final String BOOK_DETAILS = "book_details";
-    private static final String BOOK_DETAIL_TITLE = "title";
-    private static final String BOOK_DETAIL_DESCRIPTION = "description";
-    private static final String BOOK_DETAIL_CONTRIBUTOR = "contributor";
-    private static final String BOOK_DETAIL_AUTHOR = "author";
-    private static final String BOOK_DETAIL_PUBLISHER = "publisher";
-    private static final String BOOK_REVIEWS = "reviews";
     private static final String BOOK_REVIEW_URL = "book_review_link";
 
     public static boolean mapError(JSONObject result) {
@@ -34,9 +33,10 @@ public class BookMapper {
     public static List<Book> mapBooks(JSONObject result) {
         List<Book> books = new ArrayList<>();
         try {
-            JSONArray results = result.getJSONArray(BOOK_RESULTS);
-            for (int i = 0; i < results.length(); i++) {
-                JSONObject bookJson = results.getJSONObject(i);
+            JSONObject results = result.getJSONObject(BOOK_RESULTS);
+            JSONArray booksJson = results.getJSONArray(BOOK_BOOKS);
+            for (int i = 0; i < booksJson.length(); i++) {
+                JSONObject bookJson = booksJson.getJSONObject(i);
                 Book book = mapBook(bookJson);
                 if (book != null) books.add(book);
             }
@@ -56,33 +56,19 @@ public class BookMapper {
     private static Book mapBook(JSONObject result) {
         try {
             int rank = result.getInt(BOOK_RANK);
+            String title = result.getString(BOOK_TITLE);
+            String description = result.getString(BOOK_DESCRIPTION);
+            String contributor = result.getString(BOOK_CONTRIBUTOR);
+            String author = result.getString(BOOK_AUTHOR);
+            String publisher = result.getString(BOOK_PUBLISHER);
+            String imageUrl = result.getString(BOOK_IMAGE_URL);
+            int imageWidth = result.getInt(BOOK_IMAGE_WIDTH);
+            int imageHeight = result.getInt(BOOK_IMAGE_HEIGHT);
             String amazonUrl = result.getString(BOOK_AMAZON_URL);
-            JSONObject bookDetails = result.getJSONArray(BOOK_DETAILS).getJSONObject(0);
-            String title = bookDetails.getString(BOOK_DETAIL_TITLE);
-            String description = bookDetails.getString(BOOK_DETAIL_DESCRIPTION);
-            String contributor = bookDetails.getString(BOOK_DETAIL_CONTRIBUTOR);
-            String author = bookDetails.getString(BOOK_DETAIL_AUTHOR);
-            String publisher = bookDetails.getString(BOOK_DETAIL_PUBLISHER);
-            Book book = new Book(title, description, contributor, author, publisher, rank, amazonUrl);
-            JSONArray reviews = result.getJSONArray(BOOK_REVIEWS);
-            mapReviews(book, reviews);
-            return book;
+            String reviewUrl = result.getString(BOOK_REVIEW_URL);
+            return new Book(rank, title, description, contributor, author, publisher, imageUrl, imageWidth, imageHeight, amazonUrl, reviewUrl);
         } catch (JSONException e) {
             return null;
         }
     }
-
-    private static void mapReviews(Book book, JSONArray reviews) {
-        for (int i = 0; i < reviews.length(); i++) {
-            try {
-                JSONObject review = reviews.getJSONObject(i);
-                String reviewUrl = review.getString(BOOK_REVIEW_URL);
-                if (Patterns.WEB_URL.matcher(reviewUrl).matches()) book.addReview(reviewUrl);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
 }

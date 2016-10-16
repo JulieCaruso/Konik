@@ -43,7 +43,7 @@ public class NYTRequest {
     }
 
     public static NYTRequest with() {
-        return new NYTRequest(BuildConfig.NYT_API_URL + ".json");
+        return new NYTRequest(BuildConfig.NYT_API_URL + "/combined-print-and-e-book-fiction" + ".json");
     }
 
     public static NYTRequest with(int urlRes) {
@@ -57,7 +57,7 @@ public class NYTRequest {
         Ion.with(App.getInstance())
                 .load(mRequestUrl)
                 .noCache()
-                .addQueries(mQueryParameters)
+                //.addQueries(mQueryParameters)
                 .asString()
                 .withResponse()
                 .setCallback(mRequestCallback);
