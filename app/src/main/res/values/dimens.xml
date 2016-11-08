@@ -15,10 +15,12 @@
 
     <dimen name="icon_size">28dp</dimen>
 
-    <dimen name="book_image_size">42dp</dimen>
+    <dimen name="book_image_size_s">42dp</dimen>
+    <dimen name="book_image_size_l">72dp</dimen>
 
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_subtitle">20sp</dimen>
     <dimen name="text_size_title">28sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

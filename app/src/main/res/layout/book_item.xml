@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/book_item_image"
-        android:layout_width="@dimen/book_image_size"
-        android:layout_height="@dimen/book_image_size" />
+        android:layout_width="@dimen/book_image_size_s"
+        android:layout_height="@dimen/book_image_size_s" />
 
     <LinearLayout
         android:layout_width="wrap_content"

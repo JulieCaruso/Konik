@@ -16,6 +16,10 @@ public class BookManager {
         return Cache.get(CACHED_BOOKS);
     }
 
+    public static Book getCachedBook(int id) {
+        return ((List<Book>)Cache.get(CACHED_BOOKS)).get(id);
+    }
+
     public static void getList(String list, final com.kapouter.konik.util.request.RequestCallback callback) {
         NYTRequest.with()
                 .setQueryParam("list", list)

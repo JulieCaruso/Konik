@@ -18,4 +18,5 @@
     <string name="sign_in">Sign in</string>
     <string name="error_sign_in_title">@string/error_technical</string>
     <string name="error_sign_in_message">An error has occurred. Please check your identifiers or retry later if the error persists.</string>
+    <string name="title_activity_book_details">BookDetailsActivity</string>
 </resources>
