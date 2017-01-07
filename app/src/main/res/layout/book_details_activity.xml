@@ -42,8 +42,16 @@
     <TextView
         android:id="@+id/book_details_description"
         android:paddingTop="@dimen/space_l"
+        android:paddingBottom="@dimen/space_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_small"/>
+
+    <ImageView
+        android:id="@+id/book_details_add_favorite"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:clickable="true"
+        android:src="@drawable/ic_add_black_48dp"/>
 
 </LinearLayout>

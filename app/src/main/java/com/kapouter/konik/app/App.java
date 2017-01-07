@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 import com.kapouter.konik.BuildConfig;
+import com.kapouter.konik.R;
 import com.kapouter.konik.util.Cache;
 
 public class App extends Application {
@@ -26,6 +27,7 @@ public class App extends Application {
         setInstance(this);
         // SharedPreferences
         mSharedPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
+        mSharedPreferences.edit().putBoolean(getApplicationContext().getString(R.string.skip_sign_in), false).commit();
     }
 
     public static Cache getCache() {

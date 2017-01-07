@@ -51,14 +51,25 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/sign_in_sign_up"
+    android:id="@+id/sign_in_sign_up"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/sign_in_form"
+    android:layout_centerHorizontal="true"
+    android:clickable="true"
+    android:paddingBottom="@dimen/space_l"
+    android:paddingTop="@dimen/space_4xl"
+    android:text="@string/sign_up" />
+
+    <TextView
+        android:id="@+id/sign_in_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sign_in_form"
+        android:layout_below="@id/sign_in_sign_up"
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:paddingBottom="@dimen/space_l"
         android:paddingTop="@dimen/space_4xl"
-        android:text="@string/sign_up" />
+        android:text="@string/skip" />
 
 </RelativeLayout>

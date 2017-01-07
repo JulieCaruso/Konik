@@ -57,7 +57,7 @@ public class NYTRequest {
         Ion.with(App.getInstance())
                 .load(mRequestUrl)
                 .noCache()
-                //.addQueries(mQueryParameters)
+                .addQueries(mQueryParameters)
                 .asString()
                 .withResponse()
                 .setCallback(mRequestCallback);

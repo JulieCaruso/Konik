@@ -16,6 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kapouter.konik.R;
+import com.kapouter.konik.app.App;
 import com.kapouter.konik.util.SimpleMessageDialog;
 
 public class SignInActivity extends AppCompatActivity {
@@ -31,6 +32,13 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+            }
+        });
+        findViewById(R.id.sign_in_skip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.editPreferences().putBoolean(getApplicationContext().getString(R.string.skip_sign_in), true).commit();
+                finish();
             }
         });
         mAuth = FirebaseAuth.getInstance();
@@ -92,6 +100,7 @@ public class SignInActivity extends AppCompatActivity {
                             SimpleMessageDialog.show(SignInActivity.this, R.string.error_sign_in_title, R.string.error_sign_in_message);
                         } else {
                             Toast.makeText(SignInActivity.this, "auth succeeded", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }
                 });
