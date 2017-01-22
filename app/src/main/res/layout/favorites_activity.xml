@@ -11,6 +11,9 @@
     tools:context="com.kapouter.konik.favorites.FavoritesActivity"
     tools:showIn="@layout/favorites_activity">
 
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/favorites_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
 </android.support.design.widget.CoordinatorLayout>

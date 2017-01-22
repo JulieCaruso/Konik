@@ -1,8 +1,5 @@
 package com.kapouter.konik.home;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Book {
 
     private int mRank;
@@ -17,6 +14,8 @@ public class Book {
     private String mAmazonUrl;
     private String mReviewUrl;
 
+    private String mKey;
+
     public Book(int rank, String title, String description, String contributor, String author, String publisher, String imageUrl, int imageWidth, int imageHeight, String amazonUrl, String reviewUrl) {
         mRank = rank;
         mTitle = title;
@@ -29,6 +28,13 @@ public class Book {
         mImageHeight = imageHeight;
         mAmazonUrl = amazonUrl;
         mReviewUrl = reviewUrl;
+    }
+
+    public Book(String title, String author, String amazonUrl, String key) {
+        mTitle = title;
+        mAuthor = author;
+        mAmazonUrl = amazonUrl;
+        mKey = key;
     }
 
     public int getRank() {
@@ -67,11 +73,15 @@ public class Book {
         return mImageHeight;
     }
 
-    public String getmAmazonUrl() {
+    public String getAmazonUrl() {
         return mAmazonUrl;
     }
 
     public String getReviewUrl() {
         return mReviewUrl;
+    }
+
+    public String getKey() {
+        return mKey;
     }
 }

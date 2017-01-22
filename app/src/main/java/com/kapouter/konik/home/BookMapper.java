@@ -65,6 +65,8 @@ public class BookMapper {
             int imageWidth = result.getInt(BOOK_IMAGE_WIDTH);
             int imageHeight = result.getInt(BOOK_IMAGE_HEIGHT);
             String amazonUrl = result.getString(BOOK_AMAZON_URL);
+            if (!amazonUrl.startsWith("http://") && !amazonUrl.startsWith("https://"))
+                amazonUrl = "http://" + amazonUrl;
             String reviewUrl = result.getString(BOOK_REVIEW_URL);
             return new Book(rank, title, description, contributor, author, publisher, imageUrl, imageWidth, imageHeight, amazonUrl, reviewUrl);
         } catch (JSONException e) {

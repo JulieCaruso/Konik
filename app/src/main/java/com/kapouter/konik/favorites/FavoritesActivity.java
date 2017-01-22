@@ -1,24 +1,24 @@
 package com.kapouter.konik.favorites;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.kapouter.konik.R;
+import com.kapouter.konik.home.Book;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FavoritesActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FavoritesAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,12 @@ public class FavoritesActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) finish();
 
+        RecyclerView recycler = (RecyclerView) findViewById(R.id.favorites_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new FavoritesAdapter();
+        mAdapter.setUid(mAuth.getCurrentUser().getUid());
+        mAdapter.setItems(FavoritesManager.getCachedFavorites());
+        recycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -37,8 +43,8 @@ public class FavoritesActivity extends AppCompatActivity {
         FavoritesManager.getFavorites(mAuth.getCurrentUser().getUid(), new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Map<String, String>> favorites = (Map<String, Map<String, String>>) dataSnapshot.child("favorites").getValue();
-                favorites.equals(null);
+                FavoritesManager.setCachedFavorites((Map<String, Map<String, String>>) dataSnapshot.child("favorites").getValue());
+                mAdapter.setItems(FavoritesManager.getCachedFavorites());
             }
 
             @Override
